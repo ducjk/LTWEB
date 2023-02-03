@@ -1,0 +1,6 @@
+D:\Workspace\LTWeb\19T1021036\19T1021036.DomainModels\bin\Debug\19T1021036.DomainModels.dll
+D:\Workspace\LTWeb\19T1021036\19T1021036.DomainModels\bin\Debug\19T1021036.DomainModels.pdb
+D:\Workspace\LTWeb\19T1021036\19T1021036.DomainModels\obj\Debug\19T1021036.DomainModels.csproj.AssemblyReference.cache
+D:\Workspace\LTWeb\19T1021036\19T1021036.DomainModels\obj\Debug\19T1021036.DomainModels.csproj.CoreCompileInputs.cache
+D:\Workspace\LTWeb\19T1021036\19T1021036.DomainModels\obj\Debug\19T1021036.DomainModels.dll
+D:\Workspace\LTWeb\19T1021036\19T1021036.DomainModels\obj\Debug\19T1021036.DomainModels.pdb
