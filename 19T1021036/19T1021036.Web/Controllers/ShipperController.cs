@@ -16,5 +16,35 @@ namespace _19T1021036.Web.Controllers
         {
             return View();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Create()
+        {
+            ViewBag.Title = "Bổ sung người giao hàng";
+            return View("Edit");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Edit()
+        {
+            ViewBag.Title = "Cập nhật người giao hàng";
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Delete()
+        {
+            return View();
+        }
     }
+
 }
