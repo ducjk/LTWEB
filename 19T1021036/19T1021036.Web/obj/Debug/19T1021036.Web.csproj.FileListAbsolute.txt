@@ -77,3 +77,9 @@ D:\Workspace\LTWeb\19T1021036\19T1021036.Web\obj\Debug\19T1021036.Web.csproj.Cor
 D:\Workspace\LTWeb\19T1021036\19T1021036.Web\obj\Debug\19T1021036.Web.csproj.CopyComplete
 D:\Workspace\LTWeb\19T1021036\19T1021036.Web\obj\Debug\19T1021036.Web.dll
 D:\Workspace\LTWeb\19T1021036\19T1021036.Web\obj\Debug\19T1021036.Web.pdb
+D:\Workspace\LTWeb\19T1021036\19T1021036.Web\bin\19T1021036.BusinessLayers.dll
+D:\Workspace\LTWeb\19T1021036\19T1021036.Web\bin\19T1021036.DataLayers.dll
+D:\Workspace\LTWeb\19T1021036\19T1021036.Web\bin\19T1021036.DomainModels.dll
+D:\Workspace\LTWeb\19T1021036\19T1021036.Web\bin\19T1021036.BusinessLayers.pdb
+D:\Workspace\LTWeb\19T1021036\19T1021036.Web\bin\19T1021036.DataLayers.pdb
+D:\Workspace\LTWeb\19T1021036\19T1021036.Web\bin\19T1021036.DomainModels.pdb
