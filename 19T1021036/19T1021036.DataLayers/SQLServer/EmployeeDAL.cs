@@ -167,10 +167,6 @@ namespace _19T1021036.DataLayers.SQLServer
             return result;
         }
 
-        public bool Inused(int id)
-        {
-            throw new NotImplementedException();
-        }
 
         /// <summary>
         /// 

@@ -54,13 +54,13 @@ namespace _19T1021036.DataLayers
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        bool Delete(T data);
+        bool Delete(int id);
 
         /// <summary>
         /// Kiếm tra xem hiện có dữ liệu khác liên đến dữ liệu có mã là id hay không?
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        bool Inused(int id);
+        bool InUsed(int id);
     }
 }

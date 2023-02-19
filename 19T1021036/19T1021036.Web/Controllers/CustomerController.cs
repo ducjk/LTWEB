@@ -3,18 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using _19T1021036.DomainModels;
+using _19T1021036.BusinessLayers;
 
 namespace _19T1021036.Web.Controllers
 {
     public class CustomerController : Controller
     {
+        private const int PAGE_SIZE = 5;
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index()
+        public ActionResult Index(int page = 1, string searchValue = "")
         {
-            return View();
+            int rowCount = 0;
+            var data = CommonDataService.ListOfCustomers(page, PAGE_SIZE, searchValue, out rowCount);
+
+            int pageCount = rowCount / PAGE_SIZE;
+            if (rowCount % PAGE_SIZE > 0)
+            {
+                pageCount += 1;
+            }
+
+            ViewBag.Page = page;
+            ViewBag.RowCount = rowCount;
+            ViewBag.PageCount = pageCount;
+            ViewBag.SearchValue = searchValue;
+
+            return View(data);
         }
 
         /// <summary>
