@@ -104,12 +104,6 @@ namespace _19T1021036.DataLayers.SQLServer
             }
             return result;
         }
-
-        public bool Delete(Customer data)
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// 
         /// </summary>

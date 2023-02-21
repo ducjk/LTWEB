@@ -10,7 +10,7 @@ namespace _19T1021036.Web.Controllers
 {
     public class EmployeeController : Controller
     {
-        private const int PAGE_SIZE = 5;
+        private const int PAGE_SIZE = 6;
         /// <summary>
         /// 
         /// </summary>

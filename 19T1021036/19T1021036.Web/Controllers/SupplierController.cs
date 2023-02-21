@@ -12,28 +12,64 @@ namespace _19T1021036.Web.Controllers
     public class SupplierController : Controller
     {
         private const int PAGE_SIZE = 5;
+        private const string SUPPLIER_SEARCH = "SupplierCondition";
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index(int page = 1, string searchValue = "")
-        {
-            int rowCount = 0;
-            var data = CommonDataService.ListOfSuppliers(page, PAGE_SIZE, searchValue, out rowCount);
+        //public ActionResult Index(int page = 1, string searchValue = "")
+        //{
+        //    int rowCount = 0;
+        //    var data = CommonDataService.ListOfSuppliers(page, PAGE_SIZE, searchValue, out rowCount);
 
-            int pageCount = rowCount / PAGE_SIZE;
-            if (rowCount % PAGE_SIZE > 0)
+        //    int pageCount = rowCount / PAGE_SIZE;
+        //    if (rowCount % PAGE_SIZE > 0)
+        //    {
+        //        pageCount += 1;
+        //    }
+
+        //    ViewBag.Page = page;
+        //    ViewBag.RowCount = rowCount;
+        //    ViewBag.PageCount = pageCount;
+        //    ViewBag.SearchValue = searchValue;
+
+        //    return View(data); //Truyền dữ liệu bằng Model
+
+        //}
+
+        public ActionResult Index()
+        {
+            Models.PaginationSearchInput condition = Session[SUPPLIER_SEARCH] as Models.PaginationSearchInput;
+            
+            if (condition == null)
             {
-                pageCount += 1;
+                condition = new Models.PaginationSearchInput()
+                {
+                    Page = 1,
+                    PageSize = PAGE_SIZE,
+                    SearchValue = "",
+                };
             }
 
-            ViewBag.Page = page;
-            ViewBag.RowCount = rowCount;
-            ViewBag.PageCount = pageCount;
-            ViewBag.SearchValue = searchValue;
+            return View(condition);
+        }
 
-            return View(data); //Truyền dữ liệu bằng Model
+        public ActionResult Search(Models.PaginationSearchInput condition)
+        {
+            int rowCount = 0;
+            var data = CommonDataService.ListOfSuppliers(condition.Page, condition.PageSize, condition.SearchValue, out rowCount);
+            Models.SupplierSearchOutput result = new Models.SupplierSearchOutput()
+            {
+                Page = condition.Page,
+                PageSize = condition.PageSize,
+                SearchValue = condition.SearchValue,
+                RowCount = rowCount,
+                Data = data,
+            };
 
+            Session[SUPPLIER_SEARCH] = condition;
+
+            return View(result);
         }
 
         /// <summary>
@@ -42,27 +78,74 @@ namespace _19T1021036.Web.Controllers
         /// <returns></returns>
         public ActionResult Create()
         {
+            var data = new Supplier()
+            {
+                SupplierID = 0
+            };
+
             ViewBag.Title = "Bổ sung nhà cung cấp";
-            return View("Edit");
+            return View("Edit", data);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public ActionResult Edit()
+        public ActionResult Edit(int id = 0)
         {
+            if (id <= 0)
+                return RedirectToAction("Index");
+
+            var data = CommonDataService.GetSupplier(id);
+            if (data == null)
+                return RedirectToAction("Index");
+
+
             ViewBag.Title = "Cập nhật nhà cung cấp";
-            return View();
+            return View(data);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult Save(Supplier data)
+        {
+            if (data.SupplierID == 0)
+            {
+                CommonDataService.AddSupplier(data);
+            }
+            else
+            {
+                CommonDataService.UpdateSupplier(data);
+            }
+
+            return RedirectToAction("Index");
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public ActionResult Delete()
+        public ActionResult Delete(int id = 0)
         {
-            return View();
+            if (id <= 0)
+                return RedirectToAction("Index");
+            if (Request.HttpMethod == "POST")
+            {
+                CommonDataService.DeleteSupplier(id);
+                return RedirectToAction("Index");
+            }
+
+            var data = CommonDataService.GetSupplier(id);
+            if (data == null)
+                return RedirectToAction("Index");
+           
+
+            return View(data);
         }
     }
 }

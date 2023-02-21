@@ -178,7 +178,7 @@ namespace _19T1021036.BusinessLayers
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static bool UpdataCustomer(Customer data)
+        public static bool UpdateCustomer(Customer data)
         {
             return customerDB.Update(data);
         }
@@ -257,7 +257,7 @@ namespace _19T1021036.BusinessLayers
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static bool UpdataShipper(Shipper data)
+        public static bool UpdateShipper(Shipper data)
         {
             return shipperDB.Update(data);
         }
