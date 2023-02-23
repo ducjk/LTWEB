@@ -120,6 +120,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Codes\SelectListHepler.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
@@ -6523,9 +6524,12 @@
     <Content Include="Views\Supplier\Search.cshtml" />
     <Content Include="Views\Category\Search.cshtml" />
     <Content Include="Views\Customer\Search.cshtml" />
+    <Content Include="Views\Shipper\Search.cshtml" />
+    <Content Include="Views\Employee\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Assets\Photos\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>

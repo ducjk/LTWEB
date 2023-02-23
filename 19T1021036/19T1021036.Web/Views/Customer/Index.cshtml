@@ -8,6 +8,8 @@
     <div class="box-body">
         @*Form tìm kiếm*@
         <form id="formSearch" action="~/Customer/Search">
+            <input type="hidden" name="PageSize" value="@Model.PageSize"/>
+
             <div class="input-group">
                 <input type="text" name="searchValue" class="form-control" placeholder="Search" autofocus value="@Model.SearchValue">
                 <div class="input-group-btn">

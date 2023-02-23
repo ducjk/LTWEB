@@ -26,7 +26,7 @@ namespace _19T1021036.DomainModels
         /// <summary>
         ///Ngày sinh 
         /// </summary>
-        public string BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
         /// <summary>
         /// avatar
         /// </summary>

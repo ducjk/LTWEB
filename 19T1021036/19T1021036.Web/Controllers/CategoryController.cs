@@ -102,12 +102,12 @@ namespace _19T1021036.Web.Controllers
             if (id <= 0)
                 return RedirectToAction("Index");
 
-            var data = CommonDataService.GetSupplier(id);
+            var data = CommonDataService.GetCategory(id);
             if (data == null)
                 return RedirectToAction("Index");
 
             ViewBag.Title = "Cập nhật loại hàng";
-            return View();
+            return View(data);
         }
 
         /// <summary>

@@ -38,6 +38,7 @@ namespace _19T1021036.Web.Controllers
         public ActionResult Index()
         {
             Models.PaginationSearchInput condition = Session[CUSTOMER_SEARCH] as Models.PaginationSearchInput;
+
             if (condition == null)
             {
                 condition = new Models.PaginationSearchInput(){

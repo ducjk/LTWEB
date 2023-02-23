@@ -1,35 +1,44 @@
-﻿
+﻿@model _19T1021036.DomainModels.Employee
 @{
 }
 
 <div class="box box-primary">
     <div class="box-body">
-        <form class="form-horizontal" action="">
+        <form class="form-horizontal" action="~/Employee/Save" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="EmloyeeID" value="@Model.EmployeeID" />
+
             <div class="form-group">
                 <label class="control-label col-sm-2">Họ đệm:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" autofocus>
+                    <input type="text" class="form-control" autofocus value="@Model.FirstName" name="FirstName">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2">Tên:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" autofocus value="@Model.LastName" name="LastName">
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label col-sm-2">Ngày sinh:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control">
+                    <input type="date" class="form-control" value="@Model.BirthDate.Date.ToString("yyyy-MM-dd")" name="BirthDate">
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label col-sm-2">Email:</label>
                 <div class="col-sm-10">
-                    <input type="email" class="form-control">
+                    <input type="email" class="form-control" value="@Model.Email" name="Email">
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label col-sm-2">Ghi chú:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" value="@Model.Notes" name="Notes">
                 </div>
             </div>
 
@@ -37,7 +46,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2">Ảnh đại diện:</label>
                 <div class="col-sm-10">
-                    <input type="file" class="form-control">
+                    <input type="file" class="form-control" name="Photo">
                 </div>
 
             </div>
@@ -47,10 +56,10 @@
 
                 <div class="col-sm-10">
                     <div class="preview-avatar" style="width:200px; height:200px;">
-                        <img src="~/Themes/dist/img/user4-128x128.jpg" style="width:100%; height:100%; object-fit:cover;border-radius:6px;" />
+                        <img src="@Model.Photo" style="width:100%; height:100%; object-fit:cover;border-radius:6px;" />
                     </div>
                 </div>
-                
+
             </div>
 
             <div class="form-group">
