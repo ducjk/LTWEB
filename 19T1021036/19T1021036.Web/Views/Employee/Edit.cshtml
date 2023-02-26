@@ -5,33 +5,41 @@
 <div class="box box-primary">
     <div class="box-body">
         <form class="form-horizontal" action="~/Employee/Save" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="EmloyeeID" value="@Model.EmployeeID" />
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="EmployeeID" value="@Model.EmployeeID" />
 
             <div class="form-group">
                 <label class="control-label col-sm-2">Họ đệm:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" autofocus value="@Model.FirstName" name="FirstName">
+                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @autofocus = "autofocus" })
+                    @Html.ValidationMessageFor(m => m.FirstName, "", new { @style = "color:#f00" })
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label col-sm-2">Tên:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" autofocus value="@Model.LastName" name="LastName">
+                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.LastName, "", new { @style = "color:#f00" })
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label col-sm-2">Ngày sinh:</label>
                 <div class="col-sm-10">
-                    <input type="date" class="form-control" value="@Model.BirthDate.Date.ToString("yyyy-MM-dd")" name="BirthDate">
+                    @Html.HiddenFor(m => m.BirthDate)
+
+                    <input type="text" class="form-control" value="@string.Format("{0:dd/MM/yyyy}", Model.BirthDate)" name="birthday" />
+                    @Html.ValidationMessageFor(m => m.BirthDate, "", new { @style = "color:#f00" })
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label col-sm-2">Email:</label>
                 <div class="col-sm-10">
+
                     <input type="email" class="form-control" value="@Model.Email" name="Email">
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @style = "color:#f00" })
                 </div>
             </div>
 
@@ -46,7 +54,14 @@
             <div class="form-group">
                 <label class="control-label col-sm-2">Ảnh đại diện:</label>
                 <div class="col-sm-10">
-                    <input type="file" class="form-control" name="Photo">
+                    <input type="hidden" name="Photo" value="@Model.Photo" />
+
+                    <input 
+                           type="file" 
+                           class="form-control" 
+                           name="uploadphoto" accept="image/*" 
+                           id="inputImg"
+                    />
                 </div>
 
             </div>
@@ -56,7 +71,7 @@
 
                 <div class="col-sm-10">
                     <div class="preview-avatar" style="width:200px; height:200px;">
-                        <img src="@Model.Photo" style="width:100%; height:100%; object-fit:cover;border-radius:6px;" />
+                        <img id="Photo" src="~/@Model.Photo" style="width:100%; height:100%; object-fit:cover;border-radius:6px;" />
                     </div>
                 </div>
 
@@ -76,3 +91,15 @@
         </form>
     </div>
 </div>
+
+
+<script>
+    const inputImg = document.querySelector("#inputImg")
+    const imgPreview = document.querySelector("#Photo")
+
+    inputImg.onchange = (e) => {
+        const file = e.target.files[0]
+        imgPreview.src = URL.createObjectURL(file)
+    }
+
+</script>

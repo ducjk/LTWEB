@@ -106,23 +106,49 @@ namespace _19T1021036.Web.Controllers
             return View(data);
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult Save(Employee data, FormCollection form)
+        public ActionResult Save(Employee data, HttpPostedFileBase uploadphoto, string birthday)
         {
-            var file = Request.Files["Photo"];
-
-            if (file != null && file.ContentLength > 0)
+            DateTime? d = Converter.DMYStringToDateTime(birthday);
+            if (d == null)
             {
-                // Save the uploaded file to the "Photos" folder in your project
-                var fileName = Path.GetFileName(file.FileName);
-
-                var path = Path.Combine(Server.MapPath("~/Assets/Photos"), fileName);
-                file.SaveAs(path);
-
-                data.Photo = "Assets/Photos/" + fileName;
+                ModelState.AddModelError("BirthDate", "*");
             }
+            else
+            {
+                data.BirthDate = d.Value;
+            }
+
+
+            if (uploadphoto != null)
+            {
+                string path = Server.MapPath("~/Images/Employees");
+                string fileName = $"{DateTime.Now.Ticks}_{uploadphoto.FileName}";
+                string filePath = System.IO.Path.Combine(path, fileName);
+                uploadphoto.SaveAs(filePath);
+                data.Photo = $"Images/Employees/{fileName}";
+            }
+
+
+            if (string.IsNullOrWhiteSpace(data.FirstName))
+                ModelState.AddModelError(nameof(data.FirstName), "Họ không được để trống");
+
+            if (string.IsNullOrWhiteSpace(data.LastName))
+                ModelState.AddModelError(nameof(data.LastName), "Tên không được để trống");
+
+            if (string.IsNullOrWhiteSpace(data.Email))
+                ModelState.AddModelError(nameof(data.Email), "Email không được để trống");
             
 
+            data.Notes = data.Notes ?? "";
+            data.Photo = data.Photo ?? "~/Themes/dist/img/avatar.png";
+
+            if (ModelState.IsValid == false)
+            {
+                ViewBag.Title = data.EmployeeID == 0 ? "Bổ sung nhân viên" : "Cập nhật nhà cung cấp";
+                return View("Edit", data);
+            }
 
             if (data.EmployeeID == 0)
             {

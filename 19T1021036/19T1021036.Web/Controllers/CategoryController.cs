@@ -119,6 +119,18 @@ namespace _19T1021036.Web.Controllers
         [HttpPost]
         public ActionResult Save(Category data)
         {
+            //Kiểm soát dữ liệu đầu vào
+            if (string.IsNullOrWhiteSpace(data.CategoryName))
+                ModelState.AddModelError(nameof(data.CategoryName), "Tên loại hàng không được để trống");
+
+            data.Description = data.Description ?? "";
+
+            if (ModelState.IsValid == false)
+            {
+                ViewBag.Title = data.CategoryID == 0 ? "Bổ sung loại hàng" : "Cập nhật loại hàng";
+                return View("Edit", data);
+            }
+
             if (data.CategoryID == 0)
             {
                 CommonDataService.AddCategory(data);

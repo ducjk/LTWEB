@@ -106,6 +106,18 @@ namespace _19T1021036.Web.Controllers
         [HttpPost]
         public ActionResult Save(Shipper data)
         {
+            //Kiểm soát dữ liệu đầu vào
+            if (string.IsNullOrWhiteSpace(data.ShipperName))
+                ModelState.AddModelError(nameof(data.ShipperName), "Tên người giao hàng không được để trống");
+
+            data.Phone = data.Phone ?? "";
+
+            if (ModelState.IsValid == false)
+            {
+                ViewBag.Title = data.ShipperID == 0 ? "Bổ sung người giao hàng" : "Cập nhật người giao hàng";
+                return View("Edit", data);
+            }
+
             if (data.ShipperID == 0)
             {
                 CommonDataService.AddShipper(data);
