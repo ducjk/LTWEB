@@ -153,6 +153,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Employees\avatar.png" />
+    <Content Include="Images\Employees\avatar04.png" />
+    <Content Include="Images\Employees\avatar2.png" />
+    <Content Include="Images\Employees\avatar3.png" />
+    <Content Include="Images\Employees\avatar5.png" />
+    <Content Include="Images\Employees\avatarduc.png" />
+    <Content Include="Images\Employees\user1-128x128.jpg" />
+    <Content Include="Images\Employees\user2-160x160.jpg" />
+    <Content Include="Images\Employees\user3-128x128.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -6527,11 +6536,15 @@
     <Content Include="Views\Customer\Search.cshtml" />
     <Content Include="Views\Shipper\Search.cshtml" />
     <Content Include="Views\Employee\Search.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Product\Edit.cshtml" />
+    <Content Include="Views\Product\Create.cshtml" />
+    <Content Include="Views\Product\Delete.cshtml" />
+    <Content Include="Views\Product\Attribute.cshtml" />
+    <Content Include="Views\Product\Photo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Assets\Photos\Employees\" />
-    <Folder Include="Images\Employees\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>

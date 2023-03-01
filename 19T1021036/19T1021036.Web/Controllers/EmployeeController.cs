@@ -9,6 +9,7 @@ using System.IO;
 
 namespace _19T1021036.Web.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
         private const int PAGE_SIZE = 6;
@@ -113,7 +114,7 @@ namespace _19T1021036.Web.Controllers
             DateTime? d = Converter.DMYStringToDateTime(birthday);
             if (d == null)
             {
-                ModelState.AddModelError("BirthDate", "*");
+                ModelState.AddModelError("BirthDate", $"Ngày sinh {birthday} không hợp lệ");
             }
             else
             {
@@ -142,7 +143,7 @@ namespace _19T1021036.Web.Controllers
             
 
             data.Notes = data.Notes ?? "";
-            data.Photo = data.Photo ?? "~/Themes/dist/img/avatar.png";
+            data.Photo = data.Photo ?? "Images/Employees/avatar.png";
 
             if (ModelState.IsValid == false)
             {

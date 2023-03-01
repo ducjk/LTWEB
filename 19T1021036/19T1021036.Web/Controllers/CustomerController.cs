@@ -8,6 +8,7 @@ using _19T1021036.BusinessLayers;
 
 namespace _19T1021036.Web.Controllers
 {
+    [Authorize]
     public class CustomerController : Controller
     {
         private const int PAGE_SIZE = 5;
