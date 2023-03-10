@@ -140,6 +140,9 @@
     <Compile Include="Models\EmployeeSearchOutput.cs" />
     <Compile Include="Models\PaginationSearchInput.cs" />
     <Compile Include="Models\PaginationSearchOutput.cs" />
+    <Compile Include="Models\ProductEdit.cs" />
+    <Compile Include="Models\ProductSearchInput.cs" />
+    <Compile Include="Models\ProductSearchOutput.cs" />
     <Compile Include="Models\ShipperSearchOutput.cs" />
     <Compile Include="Models\SupplierSearchOutput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -162,6 +165,7 @@
     <Content Include="Images\Employees\user1-128x128.jpg" />
     <Content Include="Images\Employees\user2-160x160.jpg" />
     <Content Include="Images\Employees\user3-128x128.jpg" />
+    <Content Include="Images\Products\defaultPhoto.gif" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -6542,6 +6546,7 @@
     <Content Include="Views\Product\Delete.cshtml" />
     <Content Include="Views\Product\Attribute.cshtml" />
     <Content Include="Views\Product\Photo.cshtml" />
+    <Content Include="Views\Product\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -7,7 +7,7 @@
         @{
             var userAccount = Converter.CookieToUserAccount(User.Identity.Name);
         }
-        <form class="form-horizontal" action="~/Employee/Save" method="post" enctype="multipart/form-data">
+        <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
             @Html.AntiForgeryToken()
             <input type="hidden" name="UserID" value="@userAccount.UserID" />
 

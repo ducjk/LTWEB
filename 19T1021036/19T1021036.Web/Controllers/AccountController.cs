@@ -88,6 +88,7 @@ namespace _19T1021036.Web.Controllers
                 ModelState.AddModelError("", "Xác nhận mật khẩu không chính xác");
                 return View("Edit");
             }
+
             bool changePass = UserAccountService.ChangPassword(AccountTypes.Employee, UserName, oldPassword, newPassword);
 
             if (changePass == false)

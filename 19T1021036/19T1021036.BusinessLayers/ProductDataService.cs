@@ -52,6 +52,12 @@ namespace _19T1021036.BusinessLayers
             rowCount = productDB.Count(searchValue, categoryID, supplierID);
             return productDB.List(page, pageSize, searchValue, categoryID, supplierID).ToList();
         }
+
+        public static Product GetProduct(int productID)
+        {
+            return productDB.Get(productID);
+        }
+
         /// <summary>
         /// 
         /// </summary>
