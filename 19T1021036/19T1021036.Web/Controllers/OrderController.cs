@@ -17,7 +17,8 @@ namespace _19T1021036.Web.Controllers
     {
         private const string SHOPPING_CART = "ShoppingCart";
         private const string ERROR_MESSAGE = "ErrorMessage";
-        private const int PAGE_SIZE = 4;
+        private const string ORDEL_SEARCH = "OrdelCondition";
+        private const int PAGE_SIZE = 10;
 
         /// <summary>
         /// Tìm kiếm, phân trang
@@ -25,10 +26,45 @@ namespace _19T1021036.Web.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            //TODO: Code chức năng tìm kiếm, phân trang cho đơn hàng
+            Models.OrderSearchInput condition = Session[ORDEL_SEARCH] as Models.OrderSearchInput;
+            if (condition == null)
+            {
+                condition = new Models.OrderSearchInput()
+                {
+                    Page = 1,
+                    PageSize = PAGE_SIZE,
+                    SearchValue = "",
+                    Status = 0,
+                };
+            }
 
-            return View();
+            return View(condition);
         }
+
+        public ActionResult Search(Models.OrderSearchInput condition)//int Page. int PageSize, string searchvalue
+        {
+            int rowCount = 0;
+            var data = OrderService.ListOrders(condition.Page,
+                                                        condition.PageSize,
+                                                        condition.Status,
+                                                        condition.SearchValue,
+                                                        out rowCount);
+
+            Models.OrderSearchOutput resutl = new Models.OrderSearchOutput()
+            {
+                Page = condition.Page,
+                PageSize = condition.PageSize,
+                Status = condition.Status,
+                SearchValue = condition.SearchValue,
+                RowCount = rowCount,
+                Data = data
+            };
+
+            Session[ORDEL_SEARCH] = condition;
+
+            return View(resutl);
+        }
+
         /// <summary>
         /// Xem thông tin và chi tiết của đơn hàng
         /// </summary>
@@ -36,9 +72,13 @@ namespace _19T1021036.Web.Controllers
         /// <returns></returns>
         public ActionResult Details(int id = 0)
         {
-            //TODO: Code chức năng lấy và hiển thị thông tin của đơn hàng và chi tiết của đơn hàng
+            if (id <= 0)
+                return RedirectToAction("Index");
+            var data = OrderService.GetOrder(id);
+            if (data == null)
+                return RedirectToAction("Index");
 
-            return View();
+            return View(data);
         }
         /// <summary>
         /// Giao diện Thay đổi thông tin chi tiết đơn hàng
@@ -49,9 +89,9 @@ namespace _19T1021036.Web.Controllers
         [Route("EditDetail/{orderID}/{productID}")]
         public ActionResult EditDetail(int orderID = 0, int productID = 0)
         {
-            //TODO: Code chức năng để lấy chi tiết đơn hàng cần edit
+            OrderDetail data = OrderService.GetOrderDetail(orderID, productID);
 
-            return View();
+            return View(data);
         }
         /// <summary>
         /// Thay đổi thông tin chi tiết đơn hàng
@@ -62,6 +102,8 @@ namespace _19T1021036.Web.Controllers
         public ActionResult UpdateDetail(OrderDetail data)
         {
             //TODO: Code chức năng để cập nhật chi tiết đơn hàng
+
+            int result = OrderService.SaveOrderDetail(data.OrderID, data.ProductID, data.Quantity, data.SalePrice);
 
             return RedirectToAction($"Details/{data.OrderID}");
         }
@@ -74,7 +116,7 @@ namespace _19T1021036.Web.Controllers
         [Route("DeleteDetail/{orderID}/{productID}")]
         public ActionResult DeleteDetail(int orderID = 0, int productID = 0)
         {
-            //TODO: Code chức năng xóa 1 chi tiết trong đơn hàng
+            bool result = OrderService.DeleteOrderDetail(orderID, productID);
 
             return RedirectToAction($"Details/{orderID}");
         }
@@ -85,7 +127,7 @@ namespace _19T1021036.Web.Controllers
         /// <returns></returns>
         public ActionResult Delete(int id = 0)
         {
-            //TODO: Code chức năng để xóa đơn hàng (nếu được phép xóa)
+            var result = OrderService.DeleteOrder(id);
 
             return RedirectToAction("Index");
         }
@@ -96,7 +138,7 @@ namespace _19T1021036.Web.Controllers
         /// <returns></returns>
         public ActionResult Accept(int id = 0)
         {
-            //TODO: Code chức năng chấp nhận đơn hàng (nếu được phép)
+            bool result = OrderService.AcceptOrder(id);
 
             return RedirectToAction($"Details/{id}");
         }
@@ -107,10 +149,11 @@ namespace _19T1021036.Web.Controllers
         /// <returns></returns>
         public ActionResult Shipping(int id = 0, int shipperID = 0)
         {
-            //TODO: Code chức năng chuyển đơn hàng sang trạng thái đang giao hàng (nếu được phép)
-
+            ViewBag.OrderID = id;
             if (Request.HttpMethod == "GET")
                 return View();
+
+            var result = OrderService.ShipOrder(id, shipperID);
 
             return RedirectToAction($"Details/{id}");
         }
@@ -121,7 +164,8 @@ namespace _19T1021036.Web.Controllers
         /// <returns></returns>
         public ActionResult Finish(int id = 0)
         {
-            //TODO: Code chức năng ghi nhận hoàn tất đơn hàng (nếu được phép)
+            var result = OrderService.FinishOrder(id);
+
 
             return RedirectToAction($"Details/{id}");
         }
@@ -132,7 +176,7 @@ namespace _19T1021036.Web.Controllers
         /// <returns></returns>
         public ActionResult Cancel(int id = 0)
         {
-            //TODO: Code chức năng hủy đơn hàng (nếu được phép)
+            var result = OrderService.CancelOrder(id);
 
             return RedirectToAction($"Details/{id}");
         }
@@ -144,6 +188,7 @@ namespace _19T1021036.Web.Controllers
         public ActionResult Reject(int id = 0)
         {
             //TODO: Code chức năng từ chối đơn hàng (nếu được phép)
+            var result = OrderService.RejectOrder(id);
 
             return RedirectToAction($"Details/{id}");
         }
